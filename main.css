@@ -71,9 +71,13 @@ html, body {
 }
 
 #header .headerBtn {
-  background-color: rgb(51, 153, 112);
-  width: 30px;
-  height: 30px;
+  /* background-color: rgb(51, 153, 112); */
+  background-image: url(free-icon-check-1828743.png);
+  background-repeat: no-repeat;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
@@ -97,13 +101,21 @@ html, body {
 }
 
 .container_content .top .backBtn {
+  background-image: url(free-icon-left-arrow-271220.png);
+  background-repeat: no-repeat;
+  border: none;
+  background-color: rgba(240, 248, 255, 0);
   width: 25px;
-  height: 25px;
+  height: 15px;
 }
 
 .container_content .top .addBtn {
+  background-image: url(free-icon-check-1828743.png);
+  background-repeat: no-repeat;
+  border: none;
+  background-color: rgba(240, 248, 255, 0);
   width: 25px;
-  height: 25px;
+  height: 17.5px;
 }
 
 .container_content ul {

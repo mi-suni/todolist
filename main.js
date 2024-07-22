@@ -6,6 +6,7 @@ const backBtn = document.querySelector(".backBtn")
 const addBtn = document.querySelector(".addBtn")
 const title = document.querySelector(".title")
 const ul = document.querySelector(".content")
+let todoArr = [];
 
 // 어플
 app.addEventListener("click", function(){
@@ -13,6 +14,7 @@ app.addEventListener("click", function(){
   container_content.classList.add("none") // 무조건 app 클릭시 none클래스 적용해서 안보이게 만들기
 })
 
+loadTodos()
 
 // 목록
 headerBtn.addEventListener("click", function(){
@@ -21,7 +23,7 @@ headerBtn.addEventListener("click", function(){
     const hd_title = prompt("제목을 입력하세요(10자 이하)")
 
     if(hd_title.trim() === ""){
-      alert("제목을 입력하세요") // prompt에 빈 공백이면 if문이 나옴
+      swal('', "제목을 입력하셔야 합니다.", 'warning') // prompt에 빈 공백이면 if문이 나옴
       return; // 반환을 해야 container_content가 뜨지 않음
     }
 
@@ -37,13 +39,22 @@ headerBtn.addEventListener("click", function(){
 })
 
 
+// const toBeAdded = {
+//   todoTitle: title.textContent,
+//   todoDone: false,
+//   todoContent = {
+//   todoId: new Date().getTime(),
+//          }
+// }
+// todoArr.push(toBeAdded)
+// add_content()
 
 // 내용
 backBtn.addEventListener("click", function(){
   container_content.classList.add("none") // 뒤로가기 버튼을 눌렀을 때 none 클래스를 추가하여 화면에 안보이게 만들기
 })
 
-addBtn.addEventListener("click", function(){
+addBtn.addEventListener("click", function add_content(){
   const li = document.createElement("li")
   const check = document.createElement("input")
   check.type = "checkbox"
@@ -57,8 +68,27 @@ addBtn.addEventListener("click", function(){
 
   ul.append(li)
   li.append(check, text, deleteBtn)
+  delete_content(deleteBtn, li)
 })
 
-deleteBtn.addEventListener("click", function(){
-  li.innerHTML = ""
-})
+
+function delete_content(deleteBtn, li) {
+  deleteBtn.addEventListener("click", function(){
+    if (confirm('게시물을 지우겠습니까?') ? true : false) {
+      li.remove();
+    }
+  });
+}
+
+// 로컬 스토리지
+function saveTodos() {
+  const todoString = JSON.stringify(todoArr)
+  localStorage.setItem("todolist", todoString)
+}
+
+function loadTodos() {
+  const todolist = localStorage.getItem("todolist")
+  if(todolist !== null) {
+    todoArr = JSON.parse(todolist)
+  }
+}
