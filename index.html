@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- todolist 어플 -->
+  <div id="app">TodoList</div>
+
+  <!-- todolist 목록 -->
+  <div class="container none">
+    <header id="header">
+      <h2>TODOLIST</h2>
+      <select name="select" class="select">
+        <option value="time">최신순</option>
+        <option value="name">가나다순</option>
+      </select>
+      <button class="headerBtn"></button>
+    </header>
+
+    <main id="main">
+
+    </main>
+  </div>
+
+  <!-- todolist 내용 -->
+  <div class="container_content none">
+    <div class="top">
+      <button class="backBtn"></button>
+      <h3 class="title">여행 준비물</h3>
+      <button class="addBtn"></button>
+    </div>
+
+    <div class="content"></div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+<!-- 2024.07.22(월) 오전 1:47
+css 기본 틀 만들어서 조금 꾸민 후, 
+js에 버튼을 눌렀을 때 none 클래스를 사용하여 화면에 보이게 or 안 보이게 추가.
+해야할 것: 1. headerBtn 눌렀을 때 prompt 창 뜨게해서 제목 값 받기.
+        2. addBtn 눌러서 체크박스랑 textarea or input text 틀 나오게 만들기.
+        3. list 삭제 버튼 만들어서 지워보기.
+        4. 각 버튼의 용도에 맞는 이모지 찾아서 버튼 꾸미기.  -->
