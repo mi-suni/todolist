@@ -96,12 +96,65 @@ html, body {
   align-items: center;
 }
 
-.container_content .backBtn {
+.container_content .top .backBtn {
   width: 25px;
   height: 25px;
 }
 
-.container_content .addBtn {
+.container_content .top .addBtn {
   width: 25px;
   height: 25px;
+}
+
+.container_content ul {
+  background-color: rgba(254, 254, 254, 0.32);
+  height: 280px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.container_content ul::-webkit-scrollbar {
+  width: 10px;
+}
+.container_content ult::-webkit-scrollbar-track {
+  background-color: rgba(128, 128, 128, 0.179);
+}
+.container_content ul::-webkit-scrollbar-thumb { 
+  background-color: rgba(167, 217, 212, 0.842);
+}
+.container_content ul::-webkit-scrollbar-button {
+  display: none;
+}
+
+.container_content ul li {
+  background-color: rgba(255, 255, 255, 0.104);
+  margin: 15px 5px;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+}
+
+.container_content ul li .checkbox {
+  width: 17px;
+  height: 17px;
+}
+
+.container_content ul li .textarea {
+  background-color: rgba(255, 255, 255, 0);
+  width: 180px;
+  height: 35px;
+  padding-top: 7px;
+  border: none;
+  font-size: 18px;
+  resize: none;
+}
+
+.container_content ul li .deleteBtn {
+  background-color: rgba(255, 255, 255, 0);
+  width: 17px;
+  height: 23px;
+  border: none;
+  color: white;
+  font-size: 18px;
 }
