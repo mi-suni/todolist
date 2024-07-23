@@ -7,6 +7,7 @@ const addBtn = document.querySelector(".addBtn")
 const title = document.querySelector(".title")
 const ul = document.querySelector(".content")
 let todoArr = [];
+let todoContentArr = [];
 
 // 어플
 app.addEventListener("click", function(){
@@ -38,28 +39,13 @@ headerBtn.addEventListener("click", function(){
   container_content.classList.remove("none") // 헤더 버튼을 눌렀을 때 none 클래스를 지워서 display가 나오게 만들기
 })
 
-
-// const toBeAdded = {
-//   todoTitle: title.textContent,
-//   todoDone: false,
-//   todoContent = {
-//   todoId: new Date().getTime(),
-//          }
-// }
-// todoArr.push(toBeAdded)
-// add_content()
-
 // 내용
-backBtn.addEventListener("click", function(){
-  container_content.classList.add("none") // 뒤로가기 버튼을 눌렀을 때 none 클래스를 추가하여 화면에 안보이게 만들기
-})
-
-addBtn.addEventListener("click", function add_content(){
+addBtn.addEventListener("click", function(){
   const li = document.createElement("li")
   const check = document.createElement("input")
   check.type = "checkbox"
   check.classList.add("checkbox")
-  const text = document.createElement("textarea")
+  let text = document.createElement("textarea")
   text.classList.add("textarea")
   text.style = "outline:none"
   const deleteBtn = document.createElement("button")
@@ -69,16 +55,39 @@ addBtn.addEventListener("click", function add_content(){
   ul.append(li)
   li.append(check, text, deleteBtn)
   delete_content(deleteBtn, li)
-})
 
+  text.addEventListener('input', function() {
+    const index = Array.from(ul.children).indexOf(li); // 이건 이해가 필요
+    todoContentArr[index] = {
+        todoId: new Date().getTime(),
+        todoDone: check.checked,
+        todotext: text.value
+    };
+  });
+})
 
 function delete_content(deleteBtn, li) {
   deleteBtn.addEventListener("click", function(){
     if (confirm('게시물을 지우겠습니까?') ? true : false) {
+      const index = Array.from(ul.children).indexOf(li); // 이거 밑에까지 학습 필요.
+      todoContentArr.splice(index, 1);
       li.remove();
     }
   });
 }
+
+backBtn.addEventListener("click", function(){
+  container_content.classList.add("none") // 뒤로가기 버튼을 눌렀을 때 none 클래스를 추가하여 화면에 안보이게 만들기
+
+  let toBeAdded = {
+    todoTitle: title.textContent,
+    todoContent: [...todoContentArr] // 스프레드 연산자 사용. 학습 보조 내용 다시 확인.
+  };
+
+  todoArr.push(toBeAdded)
+  console.log(todoArr)
+})
+
 
 // 로컬 스토리지
 function saveTodos() {
