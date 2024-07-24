@@ -2,20 +2,44 @@ const app = document.getElementById("app")
 const container = document.querySelector(".container")
 const container_content = document.querySelector(".container_content")
 const headerBtn = document.querySelector(".headerBtn")
+const main = document.getElementById("main")
 const backBtn = document.querySelector(".backBtn")
 const addBtn = document.querySelector(".addBtn")
 const title = document.querySelector(".title")
 const ul = document.querySelector(".content")
 let todoArr = [];
 let todoContentArr = [];
+let i = true; // 어플 클릭했을 때 한 번만 forEach문 돌게하기 위해
+
+// 로컬 스토리지
+function saveTodos() {
+  const todoString = JSON.stringify(todoArr)
+  localStorage.setItem("todolist", todoString)
+}
+
+function loadTodos() {
+  const todolist = localStorage.getItem("todolist")
+  if(todolist !== null) {
+    todoArr = JSON.parse(todolist)
+  }
+}
+loadTodos()
 
 // 어플
 app.addEventListener("click", function(){
   container.classList.toggle("none") // 새로고침 기준 클릭시 none 클래스 제거
   container_content.classList.add("none") // 무조건 app 클릭시 none클래스 적용해서 안보이게 만들기
-})
 
-loadTodos()
+  if(i === true) {
+    todoArr.forEach((item) => {
+      const save_div = document.createElement("div")
+      save_div.classList.add("todoTitle")
+      save_div.textContent = item.todoTitle // 바보 같은 실수 ㅠ. 바로 item.todoTitle을 해야 하는데 계속 todoArr[item].todoTitle을 했더니 에러 뜸. 혹시 몰라서 i를 콘솔로그 찍으니까 그제서야 알았다.
+      main.append(save_div)
+    })
+    i = false
+  }
+})
 
 // 목록
 headerBtn.addEventListener("click", function(){
@@ -58,12 +82,14 @@ addBtn.addEventListener("click", function(){
 
   text.addEventListener('input', function() {
     const index = Array.from(ul.children).indexOf(li); // 이건 이해가 필요
+
     todoContentArr[index] = {
         todoId: new Date().getTime(),
         todoDone: check.checked,
         todotext: text.value
     };
   });
+  saveTodos()
 })
 
 function delete_content(deleteBtn, li) {
@@ -72,6 +98,7 @@ function delete_content(deleteBtn, li) {
       const index = Array.from(ul.children).indexOf(li); // 이거 밑에까지 학습 필요.
       todoContentArr.splice(index, 1);
       li.remove();
+      saveTodos()
     }
   });
 }
@@ -81,23 +108,16 @@ backBtn.addEventListener("click", function(){
 
   let toBeAdded = {
     todoTitle: title.textContent,
-    todoContent: [...todoContentArr] // 스프레드 연산자 사용. 학습 보조 내용 다시 확인.
+    todoContent: [...todoContentArr] // ...를 사용하여 각 인덱스의 맨 마지막 부분을 가져옴
   };
 
   todoArr.push(toBeAdded)
+  saveTodos()
+
+  const save_div = document.createElement("div")
+  save_div.classList.add("todoTitle")
+  save_div.textContent = todoArr[todoArr.length - 1].todoTitle
+  main.append(save_div)
+
   console.log(todoArr)
 })
-
-
-// 로컬 스토리지
-function saveTodos() {
-  const todoString = JSON.stringify(todoArr)
-  localStorage.setItem("todolist", todoString)
-}
-
-function loadTodos() {
-  const todolist = localStorage.getItem("todolist")
-  if(todolist !== null) {
-    todoArr = JSON.parse(todolist)
-  }
-}
