@@ -107,6 +107,13 @@ html, body {
   padding: 7px;
   font-size: 25px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+#main .todoTitle .date {
+  color: rgb(100, 100, 100);
+  font-size: 17px;
+  font-weight: 400;
 }
 
 /* 내용 */
